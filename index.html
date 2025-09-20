@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Curtain Cost Estimator | LuxDrape</title>
+  <meta name="description" content="Free curtain cost estimator. Enter window width, height, and fabric type to get an approximate price range before ordering custom curtains at LuxDrape." />
+  <meta name="robots" content="index,follow" />
+  <style>
+    :root{--bg:#f6f8fb;--card:#fff;--ink:#222;--muted:#555;--line:#e5e7eb;--brand:#0b73f5}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,ui-sans-serif;background:var(--bg);color:var(--ink)}
+    a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
+    header{background:var(--card);border-bottom:1px solid var(--line)}
+    .wrap{max-width:950px;margin:0 auto;padding:22px}
+    h1{margin:0 0 6px;font-size:24px}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin:18px 0}
+    label{display:block;margin-top:8px;font-size:14px}
+    input,select{width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px}
+    .btn{display:inline-block;padding:10px 16px;border-radius:8px;background:var(--brand);color:#fff;text-decoration:none;margin-top:12px;cursor:pointer;border:0}
+    .results{font-size:15px;margin-top:12px}
+    footer{color:#777;text-align:center;padding:26px 0 40px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Curtain Cost Estimator</h1>
+      <p class="lead">
+        Quickly estimate the cost range for your <a href="https://luxdrape.com/" target="_blank" rel="noopener">Custom Curtains</a> based on size and fabric type.
+      </p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h2>1) Inputs</h2>
+      <label for="width">Window width (inches)</label>
+      <input id="width" type="number" placeholder="e.g. 72" required />
+
+      <label for="height">Window height (inches)</label>
+      <input id="height" type="number" placeholder="e.g. 96" required />
+
+      <label for="fabric">Fabric type</label>
+      <select id="fabric">
+        <option value="120-200">Linen ($120–200)</option>
+        <option value="150-250">Cotton ($150–250)</option>
+        <option value="180-300">Velvet ($180–300)</option>
+        <option value="220-400">Silk ($220–400)</option>
+      </select>
+
+      <button class="btn" type="button" onclick="estimate()">Estimate</button>
+      <button class="btn" style="background:#777" type="reset">Reset</button>
+    </section>
+
+    <section class="card">
+      <h2>2) Estimated Cost</h2>
+      <div id="results" class="results">
+        <p>Fill inputs and click <strong>Estimate</strong>.</p>
+      </div>
+      <a href="https://luxdrape.com/" target="_blank" rel="noopener" class="btn">Order at LuxDrape ↗</a>
+    </section>
+
+    <section class="card">
+      <h2>3) Helpful Links</h2>
+      <ul>
+        <li><a href="https://luxdrape.com/" target="_blank" rel="noopener">Custom Curtains — LuxDrape</a></li>
+        <li><a href="https://luxdrape.com/collections/linen" target="_blank" rel="noopener">Linen Curtains</a></li>
+        <li><a href="https://luxdrape.com/collections/velvet" target="_blank" rel="noopener">Velvet Curtains</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="y"></span> LuxDrape • Free estimator tools with backlinks to
+    <a href="https://luxdrape.com/" target="_blank" rel="noopener">Custom Curtains</a>.
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    function estimate(){
+      const w = parseFloat(document.getElementById('width').value);
+      const h = parseFloat(document.getElementById('height').value);
+      const fabric = document.getElementById('fabric').value;
+
+      if(!w || !h || !fabric){
+        document.getElementById('results').innerHTML = "<p>Please fill all inputs.</p>";
+        return;
+      }
+
+      const [low, high] = fabric.split('-').map(parseFloat);
+      // Rough scale: area factor
+      const area = w * h / (72*96); // relative to base window size
+      const estLow = Math.round(low * area);
+      const estHigh = Math.round(high * area);
+
+      document.getElementById('results').innerHTML = `
+        <p><strong>Window size:</strong> ${w} × ${h} in</p>
+        <p><strong>Estimated cost range:</strong> $${estLow} – $${estHigh}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
