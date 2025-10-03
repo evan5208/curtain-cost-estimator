@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Curtain Cost Estimator | LuxDrape</title>
-  <meta name="description" content="Free curtain cost estimator. Enter window width, height, and fabric type to get an approximate price range before ordering custom curtains at LuxDrape." />
+  <title>Curtain Cost Estimator | WorldHomeExpo</title>
+  <meta name="description" content="Free curtain cost estimator. Enter window width, height, and fabric type to get an approximate price range before ordering custom curtains at WorldHomeExpo." />
   <meta name="robots" content="index,follow" />
   <style>
     :root{--bg:#f6f8fb;--card:#fff;--ink:#222;--muted:#555;--line:#e5e7eb;--brand:#0b73f5}
@@ -28,53 +28,53 @@
     <div class="wrap">
       <h1>Curtain Cost Estimator</h1>
       <p class="lead">
-        Quickly estimate the cost range for your <a href="https://luxdrape.com/" target="_blank" rel="noopener">Custom Curtains</a> based on size and fabric type.
+        Quickly estimate the cost range for your <a href="https://worldhomeexpo.com/" target="_blank" rel="noopener">Custom Curtains</a> based on size and fabric type.
       </p>
     </div>
   </header>
 
   <main class="wrap">
-    <section class="card">
-      <h2>1) Inputs</h2>
+    <section class="card" aria-labelledby="inputsHeading">
+      <h2 id="inputsHeading">1) Inputs</h2>
       <label for="width">Window width (inches)</label>
-      <input id="width" type="number" placeholder="e.g. 72" required />
+      <input id="width" type="number" inputmode="decimal" min="0" step="0.1" placeholder="e.g. 72" required aria-required="true" />
 
       <label for="height">Window height (inches)</label>
-      <input id="height" type="number" placeholder="e.g. 96" required />
+      <input id="height" type="number" inputmode="decimal" min="0" step="0.1" placeholder="e.g. 96" required aria-required="true" />
 
       <label for="fabric">Fabric type</label>
-      <select id="fabric">
+      <select id="fabric" aria-label="Fabric type">
         <option value="120-200">Linen ($120–200)</option>
         <option value="150-250">Cotton ($150–250)</option>
         <option value="180-300">Velvet ($180–300)</option>
         <option value="220-400">Silk ($220–400)</option>
       </select>
 
-      <button class="btn" type="button" onclick="estimate()">Estimate</button>
-      <button class="btn" style="background:#777" type="reset">Reset</button>
+      <button class="btn" type="button" id="estimateBtn" aria-label="Estimate cost">Estimate</button>
+      <button class="btn" style="background:#777" type="reset" aria-label="Reset form">Reset</button>
     </section>
 
-    <section class="card">
-      <h2>2) Estimated Cost</h2>
+    <section class="card" aria-labelledby="resultsHeading">
+      <h2 id="resultsHeading">2) Estimated Cost</h2>
       <div id="results" class="results">
         <p>Fill inputs and click <strong>Estimate</strong>.</p>
       </div>
-      <a href="https://luxdrape.com/" target="_blank" rel="noopener" class="btn">Order at LuxDrape ↗</a>
+      <a href="https://worldhomeexpo.com/" target="_blank" rel="noopener" class="btn" role="button" aria-label="Order at WorldHomeExpo">Order at WorldHomeExpo ↗</a>
     </section>
 
-    <section class="card">
-      <h2>3) Helpful Links</h2>
+    <section class="card" aria-labelledby="linksHeading">
+      <h2 id="linksHeading">3) Helpful Links</h2>
       <ul>
-        <li><a href="https://luxdrape.com/" target="_blank" rel="noopener">Custom Curtains — LuxDrape</a></li>
-        <li><a href="https://luxdrape.com/collections/linen" target="_blank" rel="noopener">Linen Curtains</a></li>
-        <li><a href="https://luxdrape.com/collections/velvet" target="_blank" rel="noopener">Velvet Curtains</a></li>
+        <li><a href="https://worldhomeexpo.com/" target="_blank" rel="noopener">Custom Curtains — WorldHomeExpo</a></li>
+        <li><a href="https://worldhomeexpo.com/collections/linen" target="_blank" rel="noopener">Linen Curtains</a></li>
+        <li><a href="https://worldhomeexpo.com/collections/velvet" target="_blank" rel="noopener">Velvet Curtains</a></li>
       </ul>
     </section>
   </main>
 
   <footer>
-    © <span id="y"></span> LuxDrape • Free estimator tools with backlinks to
-    <a href="https://luxdrape.com/" target="_blank" rel="noopener">Custom Curtains</a>.
+    © <span id="y"></span> WorldHomeExpo • Free estimator tools with backlinks to
+    <a href="https://worldhomeexpo.com/" target="_blank" rel="noopener">Custom Curtains</a>.
   </footer>
 
   <script>
@@ -83,24 +83,27 @@
     function estimate(){
       const w = parseFloat(document.getElementById('width').value);
       const h = parseFloat(document.getElementById('height').value);
-      const fabric = document.getElementById('fabric').value;
+      const fabricVal = document.getElementById('fabric').value;
 
-      if(!w || !h || !fabric){
-        document.getElementById('results').innerHTML = "<p>Please fill all inputs.</p>";
+      if(!(w>0) || !(h>0) || !fabricVal){
+        document.getElementById('results').innerHTML = "<p>Please fill all inputs with numbers greater than 0.</p>";
         return;
       }
 
-      const [low, high] = fabric.split('-').map(parseFloat);
-      // Rough scale: area factor
-      const area = w * h / (72*96); // relative to base window size
-      const estLow = Math.round(low * area);
-      const estHigh = Math.round(high * area);
+      const [low, high] = fabricVal.split('-').map(parseFloat);
+      // Rough scale: area factor relative to a base 72×96 in window
+      const areaFactor = (w * h) / (72 * 96);
+      const estLow = Math.round(low * areaFactor);
+      const estHigh = Math.round(high * areaFactor);
 
       document.getElementById('results').innerHTML = `
-        <p><strong>Window size:</strong> ${w} × ${h} in</p>
+        <p><strong>Window size:</strong> ${w.toFixed(1)} × ${h.toFixed(1)} in</p>
         <p><strong>Estimated cost range:</strong> $${estLow} – $${estHigh}</p>
+        <p style="font-size:13px;color:#666">Note: This is a rough estimate. Final pricing varies by heading style, lining, hardware, and customization.</p>
       `;
     }
+
+    document.getElementById('estimateBtn').addEventListener('click', estimate);
   </script>
 </body>
 </html>
