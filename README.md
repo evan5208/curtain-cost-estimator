@@ -1,9 +1,9 @@
-# Curtain Cost Estimator — by LuxDrape
+# Curtain Cost Estimator — by WorldHomeExpo
 
 **Live Demo:** [https://evan5208.github.io/curtain-cost-estimator/](https://evan5208.github.io/curtain-cost-estimator/)  
-**Order Custom Curtains:** [LuxDrape](https://luxdrape.com/)
+**Order Custom Curtains:** [WorldHomeExpo](https://worldhomeexpo.com/)
 
-A free and simple **Curtain Cost Estimator** that helps you calculate an approximate price range based on window width, height, and fabric type. Perfect for homeowners and designers planning [Custom Curtains](https://luxdrape.com/).
+A free and simple **Curtain Cost Estimator** that helps you calculate an approximate price range based on window width, height, and fabric type. Perfect for homeowners and designers planning [Custom Curtains](https://worldhomeexpo.com/).
 
 ---
 
@@ -12,7 +12,7 @@ A free and simple **Curtain Cost Estimator** that helps you calculate an approxi
 - Choose fabric type: Linen, Velvet, Cotton, Silk  
 - Get approximate cost range per fabric type  
 - Simple one-page app — no signup required  
-- Direct links to [LuxDrape](https://luxdrape.com/) for ordering
+- Direct links to [WorldHomeExpo](https://worldhomeexpo.com/) for ordering
 
 ---
 
@@ -20,7 +20,7 @@ A free and simple **Curtain Cost Estimator** that helps you calculate an approxi
 1. Enter your window width and height.  
 2. Choose a fabric type.  
 3. Click **Estimate** to see the suggested cost range.  
-4. Visit [LuxDrape](https://luxdrape.com/) to browse real [Custom Curtains](https://luxdrape.com/).  
+4. Visit [WorldHomeExpo](https://worldhomeexpo.com/) to browse real [Custom Curtains](https://worldhomeexpo.com/).  
 
 ---
 
@@ -28,3 +28,4 @@ A free and simple **Curtain Cost Estimator** that helps you calculate an approxi
 1. Place `index.html` in the repository root.  
 2. Go to **Settings → Pages** → Source: **Deploy from a branch** → `main / (root)`  
 3. Your tool will be live at:  
+   `https://<username>.github.io/curtain-cost-estimator/`
